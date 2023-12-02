@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cgtxv6lx10wbk"]
+[gd_scene load_steps=26 format=3 uid="uid://cgtxv6lx10wbk"]
 
 [ext_resource type="Script" path="res://Bathroom.gd" id="1_efhsw"]
 [ext_resource type="Texture2D" uid="uid://cj46ucfm5a6mj" path="res://art/Scenes/Bathroom/mirror.png" id="3_23xns"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bh0c8tu74v3fg" path="res://art/Scenes/Bathroom/bathtubBloddyHands.png" id="13_ugbix"]
 [ext_resource type="Texture2D" uid="uid://btkeyxaqcfn2t" path="res://art/Scenes/Bathroom/backArrow.png" id="14_x56sf"]
 [ext_resource type="Texture2D" uid="uid://buvtm1rrafj7k" path="res://art/Scenes/Bedroom/2a-Bedroom.png" id="15_j27w5"]
+[ext_resource type="VideoStream" path="res://art/Scenes/Bathroom/2c-Bedroom TV Playing Scary Movie.ogv" id="16_gye3b"]
 
 [sub_resource type="Animation" id="Animation_407rs"]
 length = 0.001
@@ -261,9 +262,6 @@ position = Vector2(1999.89, 0.500017)
 scale = Vector2(0.600116, 0.602778)
 texture = ExtResource("15_j27w5")
 
-[node name="bedroomCamera" type="Camera2D" parent="."]
-position = Vector2(2000, 0)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
 
@@ -339,6 +337,95 @@ libraries = {
 "": SubResource("AnimationLibrary_t7xu0")
 }
 
+[node name="BedroomCrack" type="Area2D" parent="."]
+position = Vector2(1999.89, 0.500031)
+scale = Vector2(0.600116, 0.602778)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BedroomCrack"]
+polygon = PackedVector2Array(388.444, 75.4838, 390.11, 287.834, 610.068, 286.175, 610.068, 80.4608)
+
+[node name="Exorcist" type="Area2D" parent="."]
+position = Vector2(1567.31, 243.4)
+scale = Vector2(0.600116, 0.602778)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Exorcist"]
+polygon = PackedVector2Array(27.8069, -33.843, 24.4741, 98.8759, 122.789, 102.194, 124.455, -33.843)
+
+[node name="TV" type="Area2D" parent="."]
+position = Vector2(1377, 213.5)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TV"]
+polygon = PackedVector2Array(391, -439.5, 391, -213.5, 790, -213.5, 786, -441.5)
+
+[node name="MovieClip" type="VideoStreamPlayer" parent="."]
+visible = false
+offset_left = 1419.0
+offset_top = -317.0
+offset_right = 3339.0
+offset_bottom = 771.0
+scale = Vector2(0.6, 0.6)
+stream = ExtResource("16_gye3b")
+volume_db = -16.95
+
+[node name="Bottles" type="Area2D" parent="."]
+position = Vector2(1377, 213.5)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bottles"]
+polygon = PackedVector2Array(944, 7.5, 945, 104.5, 1189, 104.5, 1180, -0.5)
+
+[node name="PictureFrame" type="Area2D" parent="."]
+position = Vector2(1377, 213.5)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PictureFrame"]
+polygon = PackedVector2Array(1059, -124.5, 1065, -66.5, 1136, -70.5, 1129, -135.5)
+
+[node name="Bed" type="Area2D" parent="."]
+position = Vector2(1377, 213.5)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bed"]
+polygon = PackedVector2Array(298, -178.5, 293, -27.5, 272, -16.5, 276, 101.5, 918, 98.5, 916, -20.5, 846, -20.5, 835, -191.5)
+
+[node name="Remote" type="Area2D" parent="."]
+position = Vector2(1377, 213.5)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Remote"]
+polygon = PackedVector2Array(51, -459.5, 51, -420.5, 149, -422.5, 151, -461.5)
+
+[node name="DrawerSpecial" type="Area2D" parent="."]
+position = Vector2(1480, -285)
+scale = Vector2(0.0336914, 0.0336914)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DrawerSpecial"]
+polygon = PackedVector2Array(-1662.15, 9913.52, -1632.47, 13148.8, 4481.86, 13119.1, 4422.5, 9943.2)
+
+[node name="Drawers" type="Area2D" parent="."]
+position = Vector2(1480, -285)
+scale = Vector2(0.0336914, 0.0336914)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Drawers"]
+polygon = PackedVector2Array(-1602.79, 3116.53, -1602.79, 9913.52, 4422.5, 9972.88, 4452.18, 13119.1, -1484.06, 13208.1, -1573.11, 16621.5, 2196.41, 16591.8, 2493.22, 14840.6, 4422.5, 14781.2, 4541.22, 13415.9, 4422.5, 3116.53)
+
+[node name="ToLivingRoom" type="Sprite2D" parent="."]
+position = Vector2(2536, -282)
+rotation = -3.14159
+scale = Vector2(0.0295782, 0.0295782)
+texture = ExtResource("14_x56sf")
+
+[node name="Area2D" type="Area2D" parent="ToLivingRoom"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ToLivingRoom/Area2D"]
+polygon = PackedVector2Array(1115.69, 1115.69, 1048.07, -1149.5, -1115.69, -1115.69, -1115.69, 1115.69)
+
+[node name="ToBathroom" type="Sprite2D" parent="."]
+position = Vector2(1480, -285)
+scale = Vector2(0.0336914, 0.0336914)
+texture = ExtResource("14_x56sf")
+
+[node name="Area2D" type="Area2D" parent="ToBathroom"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ToBathroom/Area2D"]
+polygon = PackedVector2Array(-1068.52, -1038.84, -949.801, 920.117, -89.0469, 1038.84, 682.668, 1009.16, 1395.02, 356.174, 1216.93, -1038.84)
+
 [connection signal="input_event" from="Mirror/Area2D" to="." method="_on_area_open_mirror_input_event"]
 [connection signal="mouse_entered" from="Mirror/Area2D" to="." method="change_cursor_hand"]
 [connection signal="mouse_exited" from="Mirror/Area2D" to="." method="change_cursor_back"]
@@ -353,3 +440,9 @@ libraries = {
 [connection signal="input_event" from="DoorHandle" to="." method="_on_area_door_handle_input_event"]
 [connection signal="input_event" from="ToiletArea" to="." method="_on_area_toilet_input_event"]
 [connection signal="input_event" from="BackArrow/Area2D" to="." method="_on_area_back_arrow"]
+[connection signal="input_event" from="TV" to="." method="tv_interact"]
+[connection signal="input_event" from="Remote" to="." method="remote_interact"]
+[connection signal="input_event" from="DrawerSpecial" to="." method="drawers_special_interact"]
+[connection signal="input_event" from="Drawers" to="." method="drawers_interact"]
+[connection signal="input_event" from="ToLivingRoom/Area2D" to="." method="to_livingroom"]
+[connection signal="input_event" from="ToBathroom/Area2D" to="." method="to_bathroom"]

@@ -9,15 +9,17 @@ var screws = 0
 var handleInteraction = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Camera2D.position.x = 2000
+	$Camera2D.position.y = 0
 	$CanvasLayer.visible = false
 	$MirrorCrack.visible = false
 	$BackArrow.visible = false
-	toggle_visiblity_off()
-	$VideoStreamPlayer.play()
-	await get_tree().create_timer(9.0).timeout
-	$TextBox.add_text("What the heck just happened? Where am I? I have to get out.")
-	await get_tree().create_timer(4.0).timeout
-	$TextBox.hide_textbox()
+#	toggle_visiblity_off()
+#	$VideoStreamPlayer.play()
+#	await get_tree().create_timer(9.0).timeout
+#	$TextBox.add_text("What the heck just happened? Where am I? I have to get out.")
+#	await get_tree().create_timer(4.0).timeout
+#	$TextBox.hide_textbox()
 	$VideoStreamPlayer.visible = false
 	$Mirror.visible = true
 	$OpenMirror.visible = false
@@ -144,6 +146,7 @@ func _on_area_door_handle_input_event(viewport, event, shape_idx):
 			$CanvasLayer/AnimationPlayer.play("new_animation")
 			$Camera2D.position.x = 2000
 			$Camera2D.position.y = 0
+			
 			$CanvasLayer2/AnimationPlayer.play("new_animation2")
 			
 
@@ -188,6 +191,60 @@ func _on_area_back_arrow(viewport, event, shape_idx):
 		$BloodyBathtub.visible = false
 		$BathtubBloodyHands.visible = false
 		$BackArrow.visible = false
+
+# ========================================================================
+# ========================================================================
+
+# BEDROOM SECTION
+
+# ========================================================================
+# ========================================================================
+var remote = false
+var dvdInteracted = false
+
+func display_text(text, delay):
+	$TextBox.add_text(text)
+	await get_tree().create_timer(delay).timeout
+	$TextBox.hide_textbox()
+
+
+func to_bathroom(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		$Camera2D.position.x = -90
+		$Camera2D.position.y = -70
+
+func to_livingroom(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		$Camera2D.position.x = 4000
+		$Camera2D.position.y = 0
+
+func drawers_interact(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		display_text("There just seems to be clothes here.", 1.0)
+
+func drawers_special_interact(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		display_text("Some pills! I can finally think straight now.", 2.0)
+		display_text("* Memories Unlocked! Press TAB to view. *", 2.0)
+
+func tv_interact(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if remote:
+			display_text("Let's see what the TV was playing", 1.5)
+			$MovieClip.visible = true
+			$MovieClip.play()
+			await get_tree().create_timer(18.0).timeout
+			$MovieClip.visible = false
+			if dvdInteracted == false:
+				display_text("Hmm, that film seemed familiar.", 1.5)
+		else:
+			display_text("I might be able to see something if I find a remote.", 2.0)
+
+func remote_interact(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		display_text("This remote seems to connect to the TV", 2.0)
+		remote = true
+	
 
 		
 
