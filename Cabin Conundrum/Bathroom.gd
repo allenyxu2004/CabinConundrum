@@ -11,13 +11,13 @@ var handleInteraction = false
 func _ready():
 	$CanvasLayer.visible = false
 	$MirrorCrack.visible = false
+	$BackArrow.visible = false
 	toggle_visiblity_off()
 	$VideoStreamPlayer.play()
 	await get_tree().create_timer(9.0).timeout
 	$TextBox.add_text("What the heck just happened? Where am I? I have to get out.")
 	await get_tree().create_timer(4.0).timeout
 	$TextBox.hide_textbox()
-		
 	$VideoStreamPlayer.visible = false
 	$Mirror.visible = true
 	$OpenMirror.visible = false
@@ -98,27 +98,31 @@ func _on_area_pills_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		pillsFound = true
 		$TextBox.add_text("Oh no! I forgot to take my pills last night.")
-		await get_tree().create_timer(3.0).timeout
+		await get_tree().create_timer(2.5).timeout
 		$TextBox.hide_textbox()
 
 
 func _on_area_screw_driver_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		screwDriverFound = true
-		if screwsFound:
-			$TextBox.add_text("I can use this to fix the handle now.")
+		if handleInteraction:
+			if screwsFound:
+				$TextBox.add_text("I can use this to fix the handle now.")
+			else:
+				$TextBox.add_text("I can use this to fix the handle. I just need some screws.")
 		else:
-			$TextBox.add_text("I can use this to fix the handle. I just need some screws.")
-		await get_tree().create_timer(3.0).timeout
+			$TextBox.add_text("An ordinary screwdriver.")
+		await get_tree().create_timer(2.5).timeout
 		$TextBox.hide_textbox()		
 
 func _on_area_crack_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		$TextBox.add_text("How did this crack get here? I'll take a closer look.")
-		await get_tree().create_timer(3.0).timeout
+		await get_tree().create_timer(2.0).timeout
 		$TextBox.hide_textbox()
 		toggle_visiblity_off()
 		$BloodyBathtub.visible = true
+		$BackArrow.visible = true
 
 func _on_area_broom_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -135,15 +139,20 @@ func _on_area_door_handle_input_event(viewport, event, shape_idx):
 			$TextBox.hide_textbox()
 		if screwsFound and screwDriverFound:
 			$TextBox.add_text("Great! Now I can go to the next room. There should be more clues there.")
-			await get_tree().create_timer(3.0).timeout
+			await get_tree().create_timer(2.5).timeout
 			$TextBox.hide_textbox()
+			$CanvasLayer/AnimationPlayer.play("new_animation")
+			$Camera2D.position.x = 2000
+			$Camera2D.position.y = 0
+			$CanvasLayer2/AnimationPlayer.play("new_animation2")
+			
 
 func _on_area_blood_tub_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		$BathtubBloodyHands.visible = true
-		await get_tree().create_timer(3.0).timeout
-		$TextBox.add_text("That blood is definitely my these injuries.")
-		await get_tree().create_timer(3.0).timeout
+		await get_tree().create_timer(1.0).timeout
+		$TextBox.add_text("That blood is definitely from my injuries.")
+		await get_tree().create_timer(2.5).timeout
 		$TextBox.hide_textbox()
 		$BathtubBloodyHands.visible = false
 
@@ -173,6 +182,12 @@ func _on_area_toilet_input_event(viewport, event, shape_idx):
 				$TextBox.add_text("It's a normal toilet.")
 				await get_tree().create_timer(1.5).timeout
 				$TextBox.hide_textbox()
+
+func _on_area_back_arrow(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		$BloodyBathtub.visible = false
+		$BathtubBloodyHands.visible = false
+		$BackArrow.visible = false
 
 		
 

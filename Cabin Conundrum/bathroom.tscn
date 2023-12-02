@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cgtxv6lx10wbk"]
+[gd_scene load_steps=25 format=3 uid="uid://cgtxv6lx10wbk"]
 
 [ext_resource type="Script" path="res://Bathroom.gd" id="1_efhsw"]
 [ext_resource type="Texture2D" uid="uid://cj46ucfm5a6mj" path="res://art/Scenes/Bathroom/mirror.png" id="3_23xns"]
@@ -13,21 +13,8 @@
 [ext_resource type="VideoStream" path="res://art/Scenes/Bathroom/testScene.ogv" id="11_1dde1"]
 [ext_resource type="VideoStream" path="res://art/Scenes/Bathroom/Cutscenes/mirrorCrack.ogv" id="11_b55kt"]
 [ext_resource type="Texture2D" uid="uid://bh0c8tu74v3fg" path="res://art/Scenes/Bathroom/bathtubBloddyHands.png" id="13_ugbix"]
-
-[sub_resource type="Animation" id="Animation_6b55g"]
-resource_name = "new_animation"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BloodyBathtub2:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
-}
+[ext_resource type="Texture2D" uid="uid://btkeyxaqcfn2t" path="res://art/Scenes/Bathroom/backArrow.png" id="14_x56sf"]
+[ext_resource type="Texture2D" uid="uid://buvtm1rrafj7k" path="res://art/Scenes/Bedroom/2a-Bedroom.png" id="15_j27w5"]
 
 [sub_resource type="Animation" id="Animation_407rs"]
 length = 0.001
@@ -42,6 +29,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6b55g"]
+resource_name = "new_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BloodyBathtub2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_q35rq"]
@@ -205,6 +207,7 @@ polygon = PackedVector2Array(-388.436, -113.46, -420.853, 125.403, -45.4976, 299
 [node name="Camera2D" type="Camera2D" parent="."]
 visible = false
 position = Vector2(-90, -70)
+zoom = Vector2(1.03, 1.03)
 
 [node name="DoorHandle" type="Area2D" parent="."]
 
@@ -216,16 +219,16 @@ offset_left = -655.0
 offset_top = -386.0
 offset_right = -615.0
 offset_bottom = -346.0
-scale = Vector2(0.59, 0.59)
+scale = Vector2(0.583, 0.583)
 stream = ExtResource("11_b55kt")
 volume_db = -16.84
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
-offset_left = -655.0
-offset_top = -386.0
-offset_right = 1265.0
-offset_bottom = 702.0
-scale = Vector2(0.59, 0.59)
+offset_left = -652.0
+offset_top = -393.0
+offset_right = 1268.0
+offset_bottom = 695.0
+scale = Vector2(0.583, 0.583)
 stream = ExtResource("11_1dde1")
 volume_db = -14.05
 
@@ -242,20 +245,24 @@ scale = Vector2(0.59, 0.59)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ToiletArea"]
 polygon = PackedVector2Array(-126.694, -246.077, -131.779, 167.483, 205.51, 159.008, 273.306, -27.4327, 3.81459, -122.348, 0.424759, -286.755)
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="BackArrow" type="Sprite2D" parent="."]
 visible = false
+position = Vector2(-590, -332)
+scale = Vector2(0.0385742, 0.0385742)
+texture = ExtResource("14_x56sf")
 
-[node name="BloodyBathtub2" type="Sprite2D" parent="CanvasLayer2"]
-modulate = Color(0, 0, 0, 1)
-position = Vector2(587, 323)
-scale = Vector2(0.611458, 0.596296)
-texture = ExtResource("10_cheoh")
+[node name="Area2D" type="Area2D" parent="BackArrow"]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer2"]
-root_node = NodePath("../../CanvasLayer2")
-libraries = {
-"": SubResource("AnimationLibrary_8hirg")
-}
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BackArrow/Area2D"]
+polygon = PackedVector2Array(-648.101, -1192.51, -1477.67, -129.62, -1192.51, 881.418, 77.7722, 1451.75, 1373.97, 674.025, 1425.82, -699.949, 337.013, -1348.05)
+
+[node name="2a-bedroom" type="Sprite2D" parent="."]
+position = Vector2(1999.89, 0.500017)
+scale = Vector2(0.600116, 0.602778)
+texture = ExtResource("15_j27w5")
+
+[node name="bedroomCamera" type="Camera2D" parent="."]
+position = Vector2(2000, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
@@ -267,6 +274,20 @@ scale = Vector2(0.611458, 0.596296)
 texture = ExtResource("10_cheoh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+"": SubResource("AnimationLibrary_8hirg")
+}
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="BloodyBathtub2" type="Sprite2D" parent="CanvasLayer2"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(587, 323)
+scale = Vector2(0.611458, 0.596296)
+texture = ExtResource("10_cheoh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer2"]
 libraries = {
 "": SubResource("AnimationLibrary_8hirg")
 }
@@ -331,3 +352,4 @@ libraries = {
 [connection signal="input_event" from="BloodyBathtub/Area2D" to="." method="_on_area_blood_tub_input_event"]
 [connection signal="input_event" from="DoorHandle" to="." method="_on_area_door_handle_input_event"]
 [connection signal="input_event" from="ToiletArea" to="." method="_on_area_toilet_input_event"]
+[connection signal="input_event" from="BackArrow/Area2D" to="." method="_on_area_back_arrow"]
