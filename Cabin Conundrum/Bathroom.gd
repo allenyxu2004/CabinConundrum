@@ -7,6 +7,8 @@ var screwsFound = false
 var checkedMirror = false
 var screws = 0
 var handleInteraction = false
+var broom = false
+var bedroom = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Camera2D.position.x = 2000
@@ -128,9 +130,15 @@ func _on_area_crack_input_event(viewport, event, shape_idx):
 
 func _on_area_broom_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		$TextBox.add_text("Hmm. This could be useful later.")
-		await get_tree().create_timer(3.0).timeout
-		$TextBox.hide_textbox()
+		if bedroom == true:
+			$TextBox.add_text("Let me use this to sweep the glass away.")
+			await get_tree().create_timer(3.0).timeout
+			$TextBox.hide_textbox()
+			broom = true
+		else:	
+			$TextBox.add_text("Hmm. This could be useful later.")
+			await get_tree().create_timer(3.0).timeout
+			$TextBox.hide_textbox()
 
 func _on_area_door_handle_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -146,6 +154,7 @@ func _on_area_door_handle_input_event(viewport, event, shape_idx):
 			$CanvasLayer/AnimationPlayer.play("new_animation")
 			$Camera2D.position.x = 2000
 			$Camera2D.position.y = 0
+			bedroom = true
 			
 			$CanvasLayer2/AnimationPlayer.play("new_animation2")
 			
@@ -201,6 +210,19 @@ func _on_area_back_arrow(viewport, event, shape_idx):
 # ========================================================================
 var remote = false
 var dvdInteracted = false
+var bottles = false
+var livingroom = false
+
+func black_scene(text):
+	$CanvasLayer.visible = true
+	$CanvasLayer2.visible = true
+	$CanvasLayer/AnimationPlayer.play("new_animation")
+	$TextBox.add_text(text)
+	await get_tree().create_timer(3.0).timeout
+	$CanvasLayer2/AnimationPlayer.play("new_animation2")
+	$TextBox.hide_textbox()
+	$CanvasLayer.visible = false
+	$CanvasLayer2.visible = false
 
 func display_text(text, delay):
 	$TextBox.add_text(text)
@@ -215,8 +237,22 @@ func to_bathroom(viewport, event, shape_idx):
 
 func to_livingroom(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		$Camera2D.position.x = 4000
-		$Camera2D.position.y = 0
+
+		if livingroom:
+			display_text("Into the living room.", 1.0)
+			$Camera2D.position.x = 4000
+			$Camera2D.position.y = 0
+		elif broom:
+			display_text("*Sweep the glass away.", 1.0)
+			await get_tree().create_timer(1.0).timeout
+			black_scene("*You sweep the glass to the side")
+			await get_tree().create_timer(3.0).timeout
+			display_text("Now I can go to the next room.", 2.0)
+			await get_tree().create_timer(3.0).timeout
+			livingroom = true
+
+		else:
+			display_text("The glass on the floor is too dangerous, I need to sweep it up somehow.", 3.0)
 
 func drawers_interact(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -225,6 +261,7 @@ func drawers_interact(viewport, event, shape_idx):
 func drawers_special_interact(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		display_text("Some pills! I can finally think straight now.", 2.0)
+		await get_tree().create_timer(2.0).timeout
 		display_text("* Memories Unlocked! Press TAB to view. *", 2.0)
 
 func tv_interact(viewport, event, shape_idx):
@@ -236,15 +273,60 @@ func tv_interact(viewport, event, shape_idx):
 			await get_tree().create_timer(18.0).timeout
 			$MovieClip.visible = false
 			if dvdInteracted == false:
-				display_text("Hmm, that film seemed familiar.", 1.5)
+				display_text("Hmm, that film seemed familiar.", 1.0)
+			if dvdInteracted == true:
+				display_text("I remember now! That movie gave me severe trauma.", 2.0)
 		else:
 			display_text("I might be able to see something if I find a remote.", 2.0)
 
 func remote_interact(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		display_text("This remote seems to connect to the TV", 2.0)
+		display_text("This remote seems to connect to the TV.", 2.0)
 		remote = true
-	
+
+func bed_interact(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		display_text("The bed is neatly made. No one must have slept here yet.", 2.5)
+
+func dvd_case_interact(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+			display_text("The Exorcist? That sounds familiar.", 1.5)
+			dvdInteracted = true
+			$ExorcistFlashback.visible = true
+			$ExorcistFlashback.play()
+			await get_tree().create_timer(8.0).timeout
+			$ExorcistFlashback.visible = false
+			display_text("That movie gave me some serious trauma.", 1.5)
+
+func crack_interact(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if bottles:
+			display_text("The crack here fits the shape of the bottle. I wonder...", 2.0)
+			$WallCrack.visible = true
+			$WallCrack.play()
+			await get_tree().create_timer(7.0)
+			$WallCrack.visible = false
+		else:
+			display_text("I wonder what made this crack in the wall", 1.5)
+
+
+func bottles_interact(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		bottles = true
+		display_text("Some bottles here are shattered. The ground is covered in glass here.", 2.5)
+
+func picture_frame_interact(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		display_text("I remember this picture! It was the day before I had to go to college.", 2.5)
+		$FamilyFlashback.visible = true
+		$FamilyFlashback.play()
+		await get_tree().create_timer(13.5)
+		$FamilyFlashback.visible = false
+
+
+
+
+		
 
 		
 
