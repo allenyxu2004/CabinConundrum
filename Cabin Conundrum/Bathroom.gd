@@ -237,7 +237,6 @@ func to_bathroom(viewport, event, shape_idx):
 
 func to_livingroom(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-
 		if livingroom:
 			display_text("Into the living room.", 1.0)
 			$Camera2D.position.x = 4000
