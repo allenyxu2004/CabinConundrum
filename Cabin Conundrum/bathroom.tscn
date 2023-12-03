@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cgtxv6lx10wbk"]
+[gd_scene load_steps=33 format=3 uid="uid://cgtxv6lx10wbk"]
 
 [ext_resource type="Script" path="res://Bathroom.gd" id="1_efhsw"]
 [ext_resource type="Texture2D" uid="uid://cj46ucfm5a6mj" path="res://art/Scenes/Bathroom/mirror.png" id="3_23xns"]
@@ -20,6 +20,9 @@
 [ext_resource type="VideoStream" path="res://art/Scenes/Bathroom/2a-Wall Crack.ogv" id="17_pjj7u"]
 [ext_resource type="VideoStream" path="res://art/Scenes/Bathroom/2e-Bedroom Flashback Seeing Family.ogv" id="19_hk3yh"]
 [ext_resource type="Texture2D" uid="uid://cccva8688kvlm" path="res://art/Scenes/Livingroom/3a-Living-Room.png" id="20_0gvrk"]
+[ext_resource type="VideoStream" path="res://art/Scenes/Livingroom/3b-Family Dinner.ogv" id="20_0ljra"]
+[ext_resource type="VideoStream" path="res://art/Scenes/Livingroom/3c-Living Room Shoes Leaving.ogv" id="21_00x6q"]
+[ext_resource type="VideoStream" path="res://art/Scenes/Livingroom/Living Room Message From Mom.ogv" id="22_e1cs8"]
 
 [sub_resource type="Animation" id="Animation_407rs"]
 length = 0.001
@@ -210,7 +213,6 @@ scale = Vector2(1.04911, 1.03867)
 polygon = PackedVector2Array(-388.436, -113.46, -420.853, 125.403, -45.4976, 299.431, 630.142, 314.787, 710.332, 115.166, 133.649, -123.697)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-visible = false
 position = Vector2(-90, -70)
 zoom = Vector2(1.03, 1.03)
 
@@ -462,27 +464,66 @@ texture = ExtResource("14_x56sf")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ToBathroom/Area2D"]
 polygon = PackedVector2Array(-1068.52, -1038.84, -949.801, 920.117, -89.0469, 1038.84, 682.668, 1009.16, 1395.02, 356.174, 1216.93, -1038.84)
 
-[node name="Node" type="Node" parent="."]
+[node name="LivingRoom" type="Node" parent="."]
 
-[node name="Shoerack" type="Area2D" parent="Node"]
+[node name="Shoerack" type="Area2D" parent="LivingRoom"]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node/Shoerack"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LivingRoom/Shoerack"]
 polygon = PackedVector2Array(4079, 514, 4314, 511, 4319, 707, 4077, 705)
 
-[node name="Bandaids" type="Area2D" parent="Node"]
+[node name="Bandaids" type="Area2D" parent="LivingRoom"]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node/Bandaids"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LivingRoom/Bandaids"]
 polygon = PackedVector2Array(4529, 491, 4523, 569, 4603, 569, 4613, 503)
 
-[node name="Dishes" type="Area2D" parent="Node"]
+[node name="Dishes" type="Area2D" parent="LivingRoom"]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node/Dishes"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LivingRoom/Dishes"]
 polygon = PackedVector2Array(4645, 445, 4595, 600, 4762, 622, 4839, 566, 4798, 449)
 
-[node name="Phone" type="Area2D" parent="Node"]
+[node name="Phone" type="Area2D" parent="LivingRoom"]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node/Phone"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LivingRoom/Phone"]
 polygon = PackedVector2Array(5010, 617, 5014, 698, 5064, 694, 5065, 615)
+
+[node name="Lamp" type="Area2D" parent="LivingRoom"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LivingRoom/Lamp"]
+polygon = PackedVector2Array(5013, 344, 4986, 433, 5032, 456, 5036, 488, 5104, 497, 5105, 451, 5176, 436, 5133, 324)
+
+[node name="Book" type="Area2D" parent="LivingRoom"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LivingRoom/Book"]
+polygon = PackedVector2Array(5028, 524, 5026, 550, 5124, 552, 5120, 527)
+
+[node name="FamilyDinner" type="VideoStreamPlayer" parent="LivingRoom"]
+visible = false
+offset_left = 4081.0
+offset_top = 61.0
+offset_right = 6001.0
+offset_bottom = 1149.0
+scale = Vector2(0.6, 0.6)
+stream = ExtResource("20_0ljra")
+volume_db = -11.05
+
+[node name="Shoes" type="VideoStreamPlayer" parent="LivingRoom"]
+visible = false
+offset_left = 4081.0
+offset_top = 76.0
+offset_right = 6001.0
+offset_bottom = 1164.0
+scale = Vector2(0.6, 0.6)
+stream = ExtResource("21_00x6q")
+volume_db = -9.05
+
+[node name="PhoneCutscene" type="VideoStreamPlayer" parent="LivingRoom"]
+visible = false
+offset_left = 4081.0
+offset_top = 68.0
+offset_right = 6001.0
+offset_bottom = 1156.0
+scale = Vector2(0.6, 0.6)
+stream = ExtResource("22_e1cs8")
 
 [node name="3a-living-room" type="Sprite2D" parent="."]
 position = Vector2(4000, 0)
@@ -514,3 +555,9 @@ texture = ExtResource("20_0gvrk")
 [connection signal="input_event" from="Drawers" to="." method="drawers_interact"]
 [connection signal="input_event" from="ToLivingRoom/Area2D" to="." method="to_livingroom"]
 [connection signal="input_event" from="ToBathroom/Area2D" to="." method="to_bathroom"]
+[connection signal="input_event" from="LivingRoom/Shoerack" to="." method="shoe_rack_interact"]
+[connection signal="input_event" from="LivingRoom/Bandaids" to="." method="bandaid_interact"]
+[connection signal="input_event" from="LivingRoom/Dishes" to="." method="dishes_interact"]
+[connection signal="input_event" from="LivingRoom/Phone" to="." method="phone_interact"]
+[connection signal="input_event" from="LivingRoom/Lamp" to="." method="lamp_interact"]
+[connection signal="input_event" from="LivingRoom/Book" to="." method="book_interact"]

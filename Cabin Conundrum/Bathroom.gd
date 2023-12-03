@@ -11,17 +11,17 @@ var broom = false
 var bedroom = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Camera2D.position.x = 2000
-	$Camera2D.position.y = 0
+	$Camera2D.position.x = -90
+	$Camera2D.position.y = -70
 	$CanvasLayer.visible = false
 	$MirrorCrack.visible = false
 	$BackArrow.visible = false
-#	toggle_visiblity_off()
-#	$VideoStreamPlayer.play()
-#	await get_tree().create_timer(9.0).timeout
-#	$TextBox.add_text("What the heck just happened? Where am I? I have to get out.")
-#	await get_tree().create_timer(4.0).timeout
-#	$TextBox.hide_textbox()
+	toggle_visiblity_off()
+	$VideoStreamPlayer.play()
+	await get_tree().create_timer(9.0).timeout
+	$TextBox.add_text("What the heck just happened? Where am I? I have to get out.")
+	await get_tree().create_timer(4.0).timeout
+	$TextBox.hide_textbox()
 	$VideoStreamPlayer.visible = false
 	$Mirror.visible = true
 	$OpenMirror.visible = false
@@ -217,9 +217,11 @@ func black_scene(text):
 	$CanvasLayer.visible = true
 	$CanvasLayer2.visible = true
 	$CanvasLayer/AnimationPlayer.play("new_animation")
+	await get_tree().create_timer(1.5).timeout
 	$TextBox.add_text(text)
-	await get_tree().create_timer(3.0).timeout
+	await get_tree().create_timer(1.5).timeout
 	$CanvasLayer2/AnimationPlayer.play("new_animation2")
+	await get_tree().create_timer(1.5).timeout
 	$TextBox.hide_textbox()
 	$CanvasLayer.visible = false
 	$CanvasLayer2.visible = false
@@ -322,6 +324,99 @@ func picture_frame_interact(viewport, event, shape_idx):
 		await get_tree().create_timer(13.5)
 		$FamilyFlashback.visible = false
 
+# ==================================================
+# ==================================================
+# LIVING ROOM SECTION
+# ==================================================
+# ==================================================
+
+var charger = false
+var phone = false
+var dishes = false
+var shoes = false
+var phoneCutscene = false
+
+func book_interact(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		display_text("A book my mom was reading yesterday.", 1.5)
+
+func shoe_rack_interact(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if shoes == false:
+			display_text("There aren't any shoes on the shoe rack. I wonder what happened...", 2.0)
+			await get_tree().create_timer(2.0).timeout
+			black_scene("I recall hearing footsteps at some point...")
+			await get_tree().create_timer(4.5).timeout
+			$LivingRoom/Shoes.visible = true
+			$LivingRoom/Shoes.play()
+			await get_tree().create_timer(7.0).timeout
+			$LivingRoom/Shoes.visible = false
+			display_text("They must have left in a hurry.", 2.0)
+			shoes = true
+		else:
+			display_text("They must have left in a hurry.", 2.0)
+
+func dishes_interact(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if dishes == false:
+			dishes = true
+			display_text("The dishes are a mess.", 1.0)
+			await get_tree().create_timer(1.0).timeout
+			black_scene("I wonder what happened?")
+			await get_tree().create_timer(4.5).timeout
+			$LivingRoom/FamilyDinner.visible = true
+			$LivingRoom/FamilyDinner.play()
+			await get_tree().create_timer(15.0).timeout
+			$LivingRoom/FamilyDinner.visible = false
+			display_text("I remember now. I ran to the living room after that Excorcist scene.", 3.0)
+
+		else:
+			display_text("The dishes are a mess.", 1.5)
+
+func bandaid_interact(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if dishes:
+			display_text("My outburst must had gotten someone hurt.", 2.0)
+		else:
+			display_text("Did someone get hurt here?", 1.5)
+
+func phone_interact(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if phone and charger:
+			display_text("I can charge the phone with the charger on the lamp.", 2.0)
+			await get_tree().create_timer(2.0).timeout
+		elif phone:
+			display_text("I need to find a charger.", 1.0)
+			await get_tree().create_timer(1.0).timeout
+		elif charger:
+			display_text("The phone is dead, but I remember finding a charger somewhere.", 1.5)
+			await get_tree().create_timer(1.5).timeout
+			phone = true
+		else:
+			display_text("The phone's dead. I need to find a charger.", 1.5)
+			await get_tree().create_timer(1.5).timeout
+			phone = true
+
+func lamp_interact(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if phone and !phoneCutscene:
+			display_text("There's a charging cabel here. Now I can charge the phone and check what's in it.", 2.5)
+			await get_tree().create_timer(2.5).timeout
+			charger = true
+			phoneCutscene = true
+			# PLAY CUTSCENE
+			black_scene("Let's check whats on it.")
+			await get_tree().create_timer(4.5).timeout
+			$LivingRoom/PhoneCutscene.visible = true
+			$LivingRoom/PhoneCutscene.play()
+			await get_tree().create_timer(17.0).timeout
+			$LivingRoom/PhoneCutscene.visible = false
+		else:
+			display_text("There's a charging cable attached to this lamp.", 1.5)
+			await get_tree().create_timer(1.5).timeout
+			charger = true
+		
+		
 
 
 
