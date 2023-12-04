@@ -1,7 +1,9 @@
-[gd_scene load_steps=33 format=3 uid="uid://cgtxv6lx10wbk"]
+[gd_scene load_steps=35 format=3 uid="uid://cgtxv6lx10wbk"]
 
 [ext_resource type="Script" path="res://Bathroom.gd" id="1_efhsw"]
+[ext_resource type="AudioStream" uid="uid://7qi57ssksldg" path="res://audio/bathroom ambience.mp3" id="2_jwl87"]
 [ext_resource type="Texture2D" uid="uid://cj46ucfm5a6mj" path="res://art/Scenes/Bathroom/mirror.png" id="3_23xns"]
+[ext_resource type="AudioStream" uid="uid://do4817fxovnqw" path="res://audio/bedroom living room ambience.mp3" id="3_bh3o7"]
 [ext_resource type="Texture2D" uid="uid://bt202ldhis26a" path="res://art/Scenes/Bathroom/1a - Broken-Bathroom (also used for 2f broom).jpg" id="3_kapfs"]
 [ext_resource type="Script" path="res://Area2D.gd" id="4_auqva"]
 [ext_resource type="Texture2D" uid="uid://byvhfkrctlmow" path="res://art/Scenes/Bathroom/openMirror.jpeg" id="5_ubr8t"]
@@ -125,6 +127,13 @@ _data = {
 [node name="Bathroom" type="Node2D"]
 position = Vector2(657, 393)
 script = ExtResource("1_efhsw")
+
+[node name="bathroomAmbience" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_jwl87")
+
+[node name="bedroomLivingRoomAmbience" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_bh3o7")
+volume_db = -5.0
 
 [node name="1a-Broken-bathroom(alsoUsedFor2fBroom)" type="Sprite2D" parent="."]
 position = Vector2(-91, -73)

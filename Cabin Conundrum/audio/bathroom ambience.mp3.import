@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://7qi57ssksldg"
+path="res://.godot/imported/bathroom ambience.mp3-5b0936ccb2700c3669eb93ca430bd116.mp3str"
+
+[deps]
+
+source_file="res://audio/bathroom ambience.mp3"
+dest_files=["res://.godot/imported/bathroom ambience.mp3-5b0936ccb2700c3669eb93ca430bd116.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

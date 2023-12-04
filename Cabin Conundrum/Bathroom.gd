@@ -29,6 +29,9 @@ func _ready():
 	$Pills.visible = false
 	$Screwdriver.visible = false
 	$BloodyBathtub.visible = false
+	$bathroomAmbience.play()
+	$bedroomLivingRoomAmbience.play()
+	$bedroomLivingRoomAmbience.set_volume_db(-100.0)
 	pass # Replace with function body.
 
 
@@ -154,9 +157,11 @@ func _on_area_door_handle_input_event(viewport, event, shape_idx):
 			$CanvasLayer/AnimationPlayer.play("new_animation")
 			$Camera2D.position.x = 2000
 			$Camera2D.position.y = 0
+			#$bathroomAmbience.set_volume_db(-100.0)
 			bedroom = true
-			
+			$bedroomLivingRoomAmbience.set_volume_db(-5.0)
 			$CanvasLayer2/AnimationPlayer.play("new_animation2")
+			
 			
 
 func _on_area_blood_tub_input_event(viewport, event, shape_idx):
@@ -236,6 +241,8 @@ func to_bathroom(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		$Camera2D.position.x = -90
 		$Camera2D.position.y = -70
+		$bedroomLivingRoomAmbience.set_volume_db(-100.0)
+		$bathroomAmbience.set_volume_db(0.0)
 
 func to_livingroom(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
