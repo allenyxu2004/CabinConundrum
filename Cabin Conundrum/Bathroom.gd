@@ -157,7 +157,7 @@ func _on_area_door_handle_input_event(viewport, event, shape_idx):
 			$CanvasLayer/AnimationPlayer.play("new_animation")
 			$Camera2D.position.x = 2000
 			$Camera2D.position.y = 0
-			#$bathroomAmbience.set_volume_db(-100.0)
+			$bathroomAmbience.set_volume_db(-100.0)
 			bedroom = true
 			$bedroomLivingRoomAmbience.set_volume_db(-5.0)
 			$CanvasLayer2/AnimationPlayer.play("new_animation2")
