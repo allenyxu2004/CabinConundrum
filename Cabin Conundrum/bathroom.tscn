@@ -433,17 +433,6 @@ scale = Vector2(0.0336914, 0.0336914)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Drawers"]
 polygon = PackedVector2Array(-1602.79, 3116.53, -1602.79, 9913.52, 4422.5, 9972.88, 4452.18, 13119.1, -1484.06, 13208.1, -1573.11, 16621.5, 2196.41, 16591.8, 2493.22, 14840.6, 4422.5, 14781.2, 4541.22, 13415.9, 4422.5, 3116.53)
 
-[node name="WallCrack" type="VideoStreamPlayer" parent="."]
-visible = false
-offset_left = 1424.0
-offset_top = -325.0
-offset_right = 3344.0
-offset_bottom = 763.0
-scale = Vector2(0.6, 0.6)
-stream = ExtResource("17_pjj7u")
-volume_db = -14.86
-buffering_msec = 900
-
 [node name="ToLivingRoom" type="Sprite2D" parent="."]
 position = Vector2(2536, -282)
 rotation = -3.14159
@@ -464,6 +453,18 @@ offset_bottom = 763.0
 scale = Vector2(0.6, 0.6)
 stream = ExtResource("17_4ft7b")
 volume_db = -15.1
+
+[node name="wallcrack" type="VideoStreamPlayer" parent="."]
+visible = false
+z_as_relative = false
+offset_left = 1424.0
+offset_top = -325.0
+offset_right = 3344.0
+offset_bottom = 763.0
+scale = Vector2(0.6, 0.6)
+stream = ExtResource("17_pjj7u")
+volume_db = -14.86
+buffering_msec = 900
 
 [node name="ToBathroom" type="Sprite2D" parent="."]
 position = Vector2(1480, -285)

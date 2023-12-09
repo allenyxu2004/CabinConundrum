@@ -11,17 +11,17 @@ var broom = false
 var bedroom = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Camera2D.position.x = -90
-	$Camera2D.position.y = -70
+	$Camera2D.position.x = 2000
+	$Camera2D.position.y = 0
 	$CanvasLayer.visible = false
 	$MirrorCrack.visible = false
 	$BackArrow.visible = false
 	toggle_visiblity_off()
-	$VideoStreamPlayer.play()
-	await get_tree().create_timer(9.0).timeout
-	$TextBox.add_text("What the heck just happened? Where am I? I have to get out.")
-	await get_tree().create_timer(4.0).timeout
-	$TextBox.hide_textbox()
+#	$VideoStreamPlayer.play()
+#	await get_tree().create_timer(9.0).timeout
+#	$TextBox.add_text("What the heck just happened? Where am I? I have to get out.")
+#	await get_tree().create_timer(4.0).timeout
+#	$TextBox.hide_textbox()
 	$VideoStreamPlayer.visible = false
 	$Mirror.visible = true
 	$OpenMirror.visible = false
@@ -205,6 +205,7 @@ func _on_area_back_arrow(viewport, event, shape_idx):
 		$BloodyBathtub.visible = false
 		$BathtubBloodyHands.visible = false
 		$BackArrow.visible = false
+		$Mirror.visible = true
 
 # ========================================================================
 # ========================================================================
@@ -305,17 +306,33 @@ func dvd_case_interact(viewport, event, shape_idx):
 			await get_tree().create_timer(8.0).timeout
 			$ExorcistFlashback.visible = false
 			display_text("That movie gave me some serious trauma.", 1.5)
+			
+var crackCutscene = false
 
 func crack_interact(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if bottles:
-			display_text("The crack here fits the shape of the bottle. I wonder...", 2.0)
-			$WallCrack.visible = true
-			$WallCrack.play()
-			await get_tree().create_timer(7.0)
-			$WallCrack.visible = false
+		if crackCutscene == false:
+			display_text("The crack here fits the shape of a bottle. I wonder...", 1.5)
+			$wallcrack.visible = true
+			$wallcrack.play()
+			await get_tree().create_timer(8.0).timeout
+			$wallcrack.visible = false
+			display_text("I must have thrown it there.", 1.5)
+			crackCutscene = true
 		else:
-			display_text("I wonder what made this crack in the wall", 1.5)
+			display_text("I must have thrown a bottle there.", 1.5)
+		
+
+#		display_text("The crack here fits the shape of the bottle. I wonder...", 2.0)
+#		await get_tree().create_timer(2.0)
+##			$wallcrack.visible = true
+##			$wallcrack.play()
+##			await get_tree().create_timer(7.0)
+##			$wallcrack.visible = false
+##			await get_tree().create_timer(7.0)
+#		display_text("I must have thrown it at the wall.", 2.0)
+##		elif bottles == false:
+##			display_text("I wonder what made this crack in the wall.", 1.5)
 
 
 func bottles_interact(viewport, event, shape_idx):
