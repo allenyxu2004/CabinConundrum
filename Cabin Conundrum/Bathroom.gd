@@ -9,20 +9,31 @@ var screws = 0
 var handleInteraction = false
 var broom = false
 var bedroom = false
+
+var familyInt = false
+var bathtubInt = false
+var excorcistInt = false
+var tvInt = false
+var dishesInt = false
+var shoesInt = false
+var bandaidInt = false
+var pillsInt = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Camera2D.position.x = 2000
+	$Camera2D.position.x = 6000
 	$Camera2D.position.y = 0
 	$CanvasLayer.visible = false
 	$MirrorCrack.visible = false
 	$BackArrow.visible = false
-	toggle_visiblity_off()
-#	$VideoStreamPlayer.play()
-#	await get_tree().create_timer(9.0).timeout
-#	$TextBox.add_text("What the heck just happened? Where am I? I have to get out.")
-#	await get_tree().create_timer(4.0).timeout
-#	$TextBox.hide_textbox()
 	$VideoStreamPlayer.visible = false
+	toggle_visiblity_off()
+	$Bathroom2/IntroScene.visible = true
+	$Bathroom2/IntroScene.play()
+	await get_tree().create_timer(9.0).timeout
+	$TextBox.add_text("How did I end up in the spare bathroom? How long have I been here? Where did everybody go?")
+	await get_tree().create_timer(4.0).timeout
+	$TextBox.hide_textbox()
+	$Bathroom2/IntroScene.visible = false
 	$Mirror.visible = true
 	$OpenMirror.visible = false
 	$TextBox.visible = true
@@ -62,74 +73,73 @@ func toggle_visiblity_on():
 func _on_area_open_mirror_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if checkedMirror == false:
-			$TextBox.add_text("Who broke this mirror?")
+			$TextBox.add_text("	Did I break this mirror?")
 			await get_tree().create_timer(2.0).timeout
 			$TextBox.hide_textbox()
-			$Mirror.visible = false
-			$MirrorCrack.visible = true
-			$MirrorCrack.play()
+			$Bathroom2/MirrorBreak.visible = true
+			$Bathroom2/MirrorBreak.play()
 			await get_tree().create_timer(5.5).timeout
 			$TextBox.add_text("Oh... it was me.")
 			await get_tree().create_timer(2.0).timeout
 			$TextBox.hide_textbox()
-			$MirrorCrack.visible = false
-			$Mirror.visible = true
+			$Bathroom2/MirrorBreak.visible = false
 			checkedMirror = true
 		else:
-			$OpenMirror.visible = true
-			$Mirror.visible = false
-			$Sink.visible = false
-			$Pills.visible = true
-			$Screwdriver.visible = true
-			get_node("Mirror/Area2D/ClosedMirrorShape2D").disabled = true
-			get_node("OpenMirror/Area2D/OpenMirrorShape2D").disabled = false
-			get_node("Pills/Area2D/CollisionPolygon2D").disabled = false
 			$TextBox.add_text("Lets see whats in the cabinet.")
 			await get_tree().create_timer(2.0).timeout
 			$TextBox.hide_textbox()
+			$Camera2D.position.x = 8000
+			$Camera2D.position.y = 0
 
 func _on_area_close_mirror_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		$OpenMirror.visible = false
-		$Mirror.visible = true
-		$Sink.visible = true
-		$Pills.visible = false
-		$Screwdriver.visible = false
-		get_node("Mirror/Area2D/ClosedMirrorShape2D").disabled = false
-		get_node("OpenMirror/Area2D/OpenMirrorShape2D").disabled = true
-		get_node("Pills/Area2D/CollisionPolygon2D").disabled = true
+		$Camera2D.position.x = 6000
+		$Camera2D.position.y = 0
 		$TextBox.hide_textbox()
 		
 
 func _on_area_pills_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		pillsFound = true
-		$TextBox.add_text("Oh no! I forgot to take my pills last night.")
+		$TextBox.add_text("Oh damn it my pills. I must have forgotten to take them.")
+		await get_tree().create_timer(2.0).timeout
+		$TextBox.add_text("Last time I forgot to take them I blacked out for days. I just can’t control myself without them.")
+		await get_tree().create_timer(2.5).timeout
+		$TextBox.add_text("I need to figure out what happened and make sure everybody is okay.")
 		await get_tree().create_timer(2.5).timeout
 		$TextBox.hide_textbox()
+		pillsInt = true
 
 
 func _on_area_screw_driver_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		screwDriverFound = true
 		if handleInteraction:
+			screwDriverFound = true
 			if screwsFound:
 				$TextBox.add_text("I can use this to fix the handle now.")
 			else:
 				$TextBox.add_text("I can use this to fix the handle. I just need some screws.")
+			await get_tree().create_timer(2.5).timeout			
+			$"Bathroom2/1-bathroomMirrorCabinet/1-screwdriver".visible = false
 		else:
-			$TextBox.add_text("An ordinary screwdriver.")
-		await get_tree().create_timer(2.5).timeout
+			$TextBox.add_text("An ordinary screwdriver. Don't know what I'd use it for.")
+			await get_tree().create_timer(2.5).timeout
 		$TextBox.hide_textbox()		
 
+var tubhands = false
 func _on_area_crack_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		$TextBox.add_text("How did this crack get here? I'll take a closer look.")
+		$TextBox.add_text("How did this crack get here?")
 		await get_tree().create_timer(2.0).timeout
 		$TextBox.hide_textbox()
-		toggle_visiblity_off()
-		$BloodyBathtub.visible = true
-		$BackArrow.visible = true
+		$"Bathroom2/1-bathtub".visible = true
+		$Camera2D.position.x = 10000
+		$Camera2D.position.y = 0
+		$TextBox.add_text("What happened that made me so angry? Did I break all of this?")
+		await get_tree().create_timer(2.0).timeout
+		$TextBox.hide_textbox()
+		tubhands = true
+
 
 func _on_area_broom_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -146,9 +156,12 @@ func _on_area_broom_input_event(viewport, event, shape_idx):
 func _on_area_door_handle_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if handleInteraction == false:
-			$TextBox.add_text("How did this happen? I can't open the door without fixing this handle with screws.")
+			$TextBox.add_text("How did this happen? It seems like it was broken from the outside. Did somebody lock me in here?")
 			handleInteraction = true
 			await get_tree().create_timer(3.0).timeout
+			$TextBox.hide_textbox()
+			$TextBox.add_text("I can’t open the door without fixing this handle with screws.")
+			await get_tree().create_timer(1.5).timeout
 			$TextBox.hide_textbox()
 		if screwsFound and screwDriverFound:
 			$TextBox.add_text("Great! Now I can go to the next room. There should be more clues there.")
@@ -165,13 +178,16 @@ func _on_area_door_handle_input_event(viewport, event, shape_idx):
 			
 
 func _on_area_blood_tub_input_event(viewport, event, shape_idx):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		$BathtubBloodyHands.visible = true
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and tubhands:
+		$"Bathroom2/1-bathtub/1b-bathtub(hands)".visible = true
 		await get_tree().create_timer(1.0).timeout
 		$TextBox.add_text("That blood is definitely from my injuries.")
 		await get_tree().create_timer(2.5).timeout
 		$TextBox.hide_textbox()
-		$BathtubBloodyHands.visible = false
+		$"Bathroom2/1-bathtub/1b-bathtub(hands)".visible = false
+		bathtubInt = true
+
+
 
 func _on_area_toilet_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -202,10 +218,9 @@ func _on_area_toilet_input_event(viewport, event, shape_idx):
 
 func _on_area_back_arrow(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		$BloodyBathtub.visible = false
-		$BathtubBloodyHands.visible = false
-		$BackArrow.visible = false
-		$Mirror.visible = true
+			$Camera2D.position.x = 6000
+			$Camera2D.position.y = 0
+			$"Bathroom2/1-bathtub".visible = false
 
 # ========================================================================
 # ========================================================================
@@ -221,17 +236,29 @@ var livingroom = false
 
 func black_scene(text):
 	$CanvasLayer.visible = true
-	$CanvasLayer2.visible = true
 	$CanvasLayer/AnimationPlayer.play("new_animation")
 	await get_tree().create_timer(1.5).timeout
 	$TextBox.add_text(text)
 	await get_tree().create_timer(1.5).timeout
+	$CanvasLayer.visible = false
+	$CanvasLayer2.visible = true
 	$CanvasLayer2/AnimationPlayer.play("new_animation2")
 	await get_tree().create_timer(1.5).timeout
 	$TextBox.hide_textbox()
-	$CanvasLayer.visible = false
 	$CanvasLayer2.visible = false
 
+func black_scene_in():
+	$CanvasLayer.visible = true
+	$CanvasLayer/AnimationPlayer.play("new_animation")
+	await get_tree().create_timer(1.5).timeout
+
+func black_scene_out():
+	$CanvasLayer.visible = false
+	$CanvasLayer2.visible = true
+	$CanvasLayer2/AnimationPlayer.play("new_animation2")
+	await get_tree().create_timer(1.5).timeout
+	$CanvasLayer2.visible = false
+	
 func display_text(text, delay):
 	$TextBox.add_text(text)
 	await get_tree().create_timer(delay).timeout
@@ -240,8 +267,8 @@ func display_text(text, delay):
 
 func to_bathroom(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		$Camera2D.position.x = -90
-		$Camera2D.position.y = -70
+		$Camera2D.position.x = 6000
+		$Camera2D.position.y = 0
 		$bedroomLivingRoomAmbience.set_volume_db(-100.0)
 		$bathroomAmbience.set_volume_db(0.0)
 
@@ -258,6 +285,8 @@ func to_livingroom(viewport, event, shape_idx):
 			await get_tree().create_timer(3.0).timeout
 			display_text("Now I can go to the next room.", 2.0)
 			await get_tree().create_timer(3.0).timeout
+			$Camera2D.position.x = 4000
+			$Camera2D.position.y = 0
 			livingroom = true
 
 		else:
@@ -271,20 +300,21 @@ func drawers_special_interact(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		display_text("Some pills! I can finally think straight now.", 2.0)
 		await get_tree().create_timer(2.0).timeout
-		display_text("* Memories Unlocked! Press TAB to view. *", 2.0)
 
 func tv_interact(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		tvInt = true
 		if remote:
-			display_text("Let's see what the TV was playing", 1.5)
+			display_text("*Hits play*", 1.0)
+			$ToBathroom.visible = false
+			$ToLivingRoom.visible = false
 			$MovieClip.visible = true
 			$MovieClip.play()
 			await get_tree().create_timer(18.0).timeout
 			$MovieClip.visible = false
-			if dvdInteracted == false:
-				display_text("Hmm, that film seemed familiar.", 1.0)
-			if dvdInteracted == true:
-				display_text("I remember now! That movie gave me severe trauma.", 2.0)
+			$ToBathroom.visible = true
+			$ToLivingRoom.visible = true
+			display_text("We stopped right in the middle of the movie. This scene always freaked me out so much.", 2.5)
 		else:
 			display_text("I might be able to see something if I find a remote.", 2.0)
 
@@ -299,13 +329,18 @@ func bed_interact(viewport, event, shape_idx):
 
 func dvd_case_interact(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-			display_text("The Exorcist? That sounds familiar.", 1.5)
+			excorcistInt = true
+			display_text("The Exorcist? Mark used to force me to watch this movie as a kid, I seriously hate it.", 2.5)
 			dvdInteracted = true
+			$ToBathroom.visible = false
+			$ToLivingRoom.visible = false
 			$ExorcistFlashback.visible = true
 			$ExorcistFlashback.play()
 			await get_tree().create_timer(8.0).timeout
 			$ExorcistFlashback.visible = false
-			display_text("That movie gave me some serious trauma.", 1.5)
+			$ToBathroom.visible = true
+			$ToLivingRoom.visible = true
+			display_text("That movie gave me some serious trauma. I can’t believe I let them put this on.", 1.5)
 			
 var crackCutscene = false
 
@@ -313,26 +348,18 @@ func crack_interact(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if crackCutscene == false:
 			display_text("The crack here fits the shape of a bottle. I wonder...", 1.5)
+			$ToBathroom.visible = false
+			$ToLivingRoom.visible = false
 			$wallcrack.visible = true
 			$wallcrack.play()
 			await get_tree().create_timer(8.0).timeout
 			$wallcrack.visible = false
-			display_text("I must have thrown it there.", 1.5)
+			$ToBathroom.visible = true
+			$ToLivingRoom.visible = true
+			display_text("Something must have set me off and made me throw those bottles. I hope I didn’t hurt anybody.", 2.5)
 			crackCutscene = true
 		else:
-			display_text("I must have thrown a bottle there.", 1.5)
-		
-
-#		display_text("The crack here fits the shape of the bottle. I wonder...", 2.0)
-#		await get_tree().create_timer(2.0)
-##			$wallcrack.visible = true
-##			$wallcrack.play()
-##			await get_tree().create_timer(7.0)
-##			$wallcrack.visible = false
-##			await get_tree().create_timer(7.0)
-#		display_text("I must have thrown it at the wall.", 2.0)
-##		elif bottles == false:
-##			display_text("I wonder what made this crack in the wall.", 1.5)
+			display_text("Something must have set me off and made me throw those bottles. I hope I didn’t hurt anybody.", 2.5)
 
 
 func bottles_interact(viewport, event, shape_idx):
@@ -342,11 +369,16 @@ func bottles_interact(viewport, event, shape_idx):
 
 func picture_frame_interact(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		display_text("I remember this picture! It was the day before I had to go to college.", 2.5)
-		$FamilyFlashback.visible = true
-		$FamilyFlashback.play()
-		await get_tree().create_timer(13.5)
-		$FamilyFlashback.visible = false
+		familyInt = true
+		$TextBox.add_text("I remember this picture! It was the first time we came up here to the cabin back when we were kids.")
+		await get_tree().create_timer(2.5).timeout
+		$TextBox.add_text("I’ve always loved being up here with our family. It holds a lot of tough memories though.")
+		await get_tree().create_timer(2.5).timeout
+		$TextBox.add_text("I had my first incident here when we were watching one of Mark’s stupid horror movies.")
+		await get_tree().create_timer(2.0).timeout
+		$TextBox.add_text("At least I have my meds now to help me control everything.")
+		await get_tree().create_timer(1.5).timeout
+		$TextBox.hide_textbox()
 
 # ==================================================
 # ==================================================
@@ -366,8 +398,9 @@ func book_interact(viewport, event, shape_idx):
 
 func shoe_rack_interact(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		shoesInt = true
 		if shoes == false:
-			display_text("There aren't any shoes on the shoe rack. I wonder what happened...", 2.0)
+			display_text("There aren’t any shoes on the rack.", 1.0)
 			await get_tree().create_timer(2.0).timeout
 			black_scene("I recall hearing footsteps at some point...")
 			await get_tree().create_timer(4.5).timeout
@@ -375,30 +408,39 @@ func shoe_rack_interact(viewport, event, shape_idx):
 			$LivingRoom/Shoes.play()
 			await get_tree().create_timer(7.0).timeout
 			$LivingRoom/Shoes.visible = false
-			display_text("They must have left in a hurry.", 2.0)
+			display_text("Everybody must have left in a hurry.", 1.0)
 			shoes = true
 		else:
 			display_text("They must have left in a hurry.", 2.0)
 
 func dishes_interact(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		dishesInt = true
 		if dishes == false:
 			dishes = true
-			display_text("The dishes are a mess.", 1.0)
-			await get_tree().create_timer(1.0).timeout
-			black_scene("I wonder what happened?")
-			await get_tree().create_timer(4.5).timeout
+			display_text("The last thing I can remember is eating dinner.", 1.5)
+			await get_tree().create_timer(2.0).timeout
+			black_scene_in()
+			await get_tree().create_timer(1.5).timeout
+			$TextBox.add_text("*Mark: We’re thinking of watching a scary movie tonight Lindsay, what do you think?*")
+			await get_tree().create_timer(2.5).timeout
+			$TextBox.add_text("*Me: You know how those upset me. Can’t we just watch something happy for once?*")
+			await get_tree().create_timer(2.5).timeout
+			$TextBox.add_text("*Mark: Come on sis, for old times sake? What could go wrong?*")
+			await get_tree().create_timer(2.0).timeout
+			$TextBox.hide_textbox()
 			$LivingRoom/FamilyDinner.visible = true
+			black_scene_out()
 			$LivingRoom/FamilyDinner.play()
 			await get_tree().create_timer(15.0).timeout
 			$LivingRoom/FamilyDinner.visible = false
-			display_text("I remember now. I ran to the living room after that Excorcist scene.", 3.0)
-
+			display_text("Apparently everything.", 3.0)
 		else:
 			display_text("The dishes are a mess.", 1.5)
 
 func bandaid_interact(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		bandaidInt = true
 		if dishes:
 			display_text("My outburst must had gotten someone hurt.", 2.0)
 		else:
@@ -439,6 +481,19 @@ func lamp_interact(viewport, event, shape_idx):
 			display_text("There's a charging cable attached to this lamp.", 1.5)
 			await get_tree().create_timer(1.5).timeout
 			charger = true
+
+func finish(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		var interactions = [familyInt, bathtubInt, excorcistInt, tvInt, dishesInt, shoesInt, bandaidInt, phoneCutscene]
+
+		var trueCount = 0
+		for interaction in interactions:
+			if interaction:
+				trueCount += 1
+		if trueCount > 5:
+			display_text("I think I've gathered enough information. Time to head out.", 2.0)
+		else:
+			display_text("I shouldn't leave yet. There are still some missing clues to be discovered.", 2.0)
 		
 		
 

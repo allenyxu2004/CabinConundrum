@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cgtxv6lx10wbk"]
+[gd_scene load_steps=43 format=3 uid="uid://cgtxv6lx10wbk"]
 
 [ext_resource type="Script" path="res://Bathroom.gd" id="1_efhsw"]
 [ext_resource type="AudioStream" uid="uid://7qi57ssksldg" path="res://audio/bathroom ambience.mp3" id="2_jwl87"]
@@ -25,6 +25,14 @@
 [ext_resource type="VideoStream" path="res://art/Scenes/Livingroom/3b-Family Dinner.ogv" id="20_0ljra"]
 [ext_resource type="VideoStream" path="res://art/Scenes/Livingroom/3c-Living Room Shoes Leaving.ogv" id="21_00x6q"]
 [ext_resource type="VideoStream" path="res://art/Scenes/Livingroom/Living Room Message From Mom.ogv" id="22_e1cs8"]
+[ext_resource type="Texture2D" uid="uid://djix8cqhysw70" path="res://art/Scenes/Bathroomv2/1-Bathroom Mirror Cabinet.png" id="26_484mm"]
+[ext_resource type="Texture2D" uid="uid://hrehl4qjdtuw" path="res://art/Scenes/Bathroomv2/1-Pill Bottle.png" id="27_x8xy1"]
+[ext_resource type="Texture2D" uid="uid://bllt4abjp7ukq" path="res://art/Scenes/Bathroomv2/1-Screwdriver.png" id="28_uq25p"]
+[ext_resource type="VideoStream" path="res://art/Scenes/Bathroomv2/1a-Bathroom Opening Scene.ogv" id="29_83wx7"]
+[ext_resource type="Texture2D" uid="uid://c6ynyp0hecqeu" path="res://art/Scenes/Bathroomv2/1a-Bathroom-Base.png" id="30_lq04j"]
+[ext_resource type="Texture2D" uid="uid://brkle282kpeb7" path="res://art/Scenes/Bathroomv2/1-Bathtub.png" id="31_5prr5"]
+[ext_resource type="Texture2D" uid="uid://bjnx8aj2del7t" path="res://art/Scenes/Bathroomv2/1b-Bathtub (Hands).png" id="32_r2u6v"]
+[ext_resource type="VideoStream" path="res://art/Scenes/Bathroomv2/1b-Bathroom Mirror Breaking.ogv" id="33_u5f0p"]
 
 [sub_resource type="Animation" id="Animation_407rs"]
 length = 0.001
@@ -415,17 +423,6 @@ scale = Vector2(0.0336914, 0.0336914)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DrawerSpecial"]
 polygon = PackedVector2Array(-1662.15, 9913.52, -1632.47, 13148.8, 4481.86, 13119.1, 4422.5, 9943.2)
 
-[node name="FamilyFlashback" type="VideoStreamPlayer" parent="."]
-visible = false
-offset_left = 1424.0
-offset_top = -325.0
-offset_right = 3344.0
-offset_bottom = 763.0
-scale = Vector2(0.6, 0.6)
-stream = ExtResource("19_hk3yh")
-volume_db = -15.85
-buffering_msec = 1000
-
 [node name="Drawers" type="Area2D" parent="."]
 position = Vector2(1480, -285)
 scale = Vector2(0.0336914, 0.0336914)
@@ -465,6 +462,17 @@ scale = Vector2(0.6, 0.6)
 stream = ExtResource("17_pjj7u")
 volume_db = -14.86
 buffering_msec = 900
+
+[node name="FamilyFlashback" type="VideoStreamPlayer" parent="."]
+visible = false
+offset_left = 1424.0
+offset_top = -325.0
+offset_right = 3344.0
+offset_bottom = 763.0
+scale = Vector2(0.6, 0.6)
+stream = ExtResource("19_hk3yh")
+volume_db = -15.85
+buffering_msec = 1000
 
 [node name="ToBathroom" type="Sprite2D" parent="."]
 position = Vector2(1480, -285)
@@ -542,6 +550,133 @@ position = Vector2(4000, 0)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("20_0gvrk")
 
+[node name="Bathroom2" type="Node" parent="."]
+
+[node name="1-bathroomMirrorCabinet" type="Sprite2D" parent="Bathroom2"]
+position = Vector2(8656.5, 394.5)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("26_484mm")
+
+[node name="CloseMirror" type="Area2D" parent="Bathroom2/1-bathroomMirrorCabinet"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bathroom2/1-bathroomMirrorCabinet/CloseMirror"]
+polygon = PackedVector2Array(125.915, -446.457, 119.499, 176.031, 191.68, 186.236, 201.304, -449.858)
+
+[node name="1-pillBottle" type="Sprite2D" parent="Bathroom2/1-bathroomMirrorCabinet"]
+position = Vector2(302.359, -152.22)
+scale = Vector2(0.153719, 0.162994)
+texture = ExtResource("27_x8xy1")
+
+[node name="Area2D" type="Area2D" parent="Bathroom2/1-bathroomMirrorCabinet/1-pillBottle"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bathroom2/1-bathroomMirrorCabinet/1-pillBottle/Area2D"]
+polygon = PackedVector2Array(-198.281, -281.738, -208.711, 260.865, -20.8906, 344.343, 239.977, 313.039, 208.672, -323.477)
+
+[node name="1-screwdriver" type="Sprite2D" parent="Bathroom2/1-bathroomMirrorCabinet"]
+position = Vector2(496.441, 41.6694)
+rotation = 0.0872665
+scale = Vector2(0.194916, 0.206676)
+texture = ExtResource("28_uq25p")
+
+[node name="Area2D" type="Area2D" parent="Bathroom2/1-bathroomMirrorCabinet/1-screwdriver"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bathroom2/1-bathroomMirrorCabinet/1-screwdriver/Area2D"]
+position = Vector2(-8.19531, 0.675537)
+polygon = PackedVector2Array(370.313, -189.273, -567.82, -0.000732422, -584.273, 115.208, 485.523, 24.687, 485.523, -213.96)
+
+[node name="1-bathtub" type="Sprite2D" parent="Bathroom2"]
+position = Vector2(10657, 393)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("31_5prr5")
+
+[node name="BackArrow2" type="Sprite2D" parent="Bathroom2/1-bathtub"]
+position = Vector2(-858.313, -451.666)
+scale = Vector2(0.0453162, 0.0487854)
+texture = ExtResource("14_x56sf")
+
+[node name="Area2D" type="Area2D" parent="Bathroom2/1-bathtub/BackArrow2"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bathroom2/1-bathtub/BackArrow2/Area2D"]
+position = Vector2(-0.46875, 0.00390625)
+polygon = PackedVector2Array(-741.875, -1023.92, -1130.25, -423.689, -1094.94, 141.231, -1094.94, 600.228, -600.625, 1059.23, 211.438, 1129.84, 1094.13, 776.766, 1235.34, 211.846, 1164.75, -670.841, 423.281, -1094.53)
+
+[node name="Bloodsplatter" type="Area2D" parent="Bathroom2/1-bathtub"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bathroom2/1-bathtub/Bloodsplatter"]
+polygon = PackedVector2Array(-523.201, -189.474, -683.201, 27.5598, -686.401, 177.416, -572.801, 320.383, -116.801, 384.115, 345.6, 396.172, 601.6, 313.493, 688, 117.129, 510.398, -8.61249, 88, -130.909)
+
+[node name="1b-bathtub(hands)" type="Sprite2D" parent="Bathroom2/1-bathtub"]
+visible = false
+position = Vector2(0, -6.66669)
+scale = Vector2(0.996667, 1.00319)
+texture = ExtResource("32_r2u6v")
+
+[node name="1a-bathroom-base" type="Sprite2D" parent="Bathroom2"]
+position = Vector2(6657, 393)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("30_lq04j")
+
+[node name="Toilet" type="Area2D" parent="Bathroom2/1a-bathroom-base"]
+position = Vector2(-10686.8, -657.028)
+scale = Vector2(1.60535, 1.67183)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bathroom2/1a-bathroom-base/Toilet"]
+polygon = PackedVector2Array(6059, 438, 6069, 689, 6255, 689, 6325, 571, 6141, 565, 6131, 433)
+
+[node name="DoorHandle" type="Area2D" parent="Bathroom2/1a-bathroom-base"]
+position = Vector2(-10686.8, -657.028)
+scale = Vector2(1.60535, 1.67183)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bathroom2/1a-bathroom-base/DoorHandle"]
+polygon = PackedVector2Array(6336, 340, 6331, 397, 6373, 391, 6373, 335)
+
+[node name="Bathtub" type="Area2D" parent="Bathroom2/1a-bathroom-base"]
+position = Vector2(-10686.8, -657.028)
+scale = Vector2(1.60535, 1.67183)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bathroom2/1a-bathroom-base/Bathtub"]
+polygon = PackedVector2Array(6770, 514, 6805, 622, 6871, 661, 7168, 658, 7187, 562, 7219, 544, 7219, 488)
+
+[node name="Broom" type="Area2D" parent="Bathroom2/1a-bathroom-base"]
+position = Vector2(-10686.8, -657.028)
+scale = Vector2(1.60535, 1.67183)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bathroom2/1a-bathroom-base/Broom"]
+polygon = PackedVector2Array(7210, 330, 7212, 556, 7175, 659, 7222, 676, 7266, 670, 7261, 568, 7241, 547, 7241, 318)
+
+[node name="Mirror" type="Area2D" parent="Bathroom2/1a-bathroom-base"]
+position = Vector2(-10686.8, -657.028)
+scale = Vector2(1.60535, 1.67183)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bathroom2/1a-bathroom-base/Mirror"]
+polygon = PackedVector2Array(6540, 220, 6539, 375, 6576, 406, 6629, 414, 6677, 403, 6707, 379, 6709, 211, 6674, 192, 6604, 183)
+
+[node name="IntroScene" type="VideoStreamPlayer" parent="Bathroom2"]
+visible = false
+offset_left = 6059.0
+offset_top = 77.0
+offset_right = 8103.0
+offset_bottom = 1165.0
+scale = Vector2(0.61, 0.585)
+stream = ExtResource("29_83wx7")
+volume_db = -11.85
+
+[node name="MirrorBreak" type="VideoStreamPlayer" parent="Bathroom2"]
+visible = false
+offset_left = 6059.0
+offset_top = 74.0
+offset_right = 7979.0
+offset_bottom = 1162.0
+scale = Vector2(0.63, 0.588)
+stream = ExtResource("33_u5f0p")
+volume_db = -6.93
+
+[node name="Finish" type="Sprite2D" parent="."]
+position = Vector2(4517, -280)
+rotation = 3.14159
+scale = Vector2(0.0260015, 0.0260015)
+texture = ExtResource("14_x56sf")
+
 [connection signal="input_event" from="Mirror/Area2D" to="." method="_on_area_open_mirror_input_event"]
 [connection signal="mouse_entered" from="Mirror/Area2D" to="." method="change_cursor_hand"]
 [connection signal="mouse_exited" from="Mirror/Area2D" to="." method="change_cursor_back"]
@@ -573,3 +708,14 @@ texture = ExtResource("20_0gvrk")
 [connection signal="input_event" from="LivingRoom/Phone" to="." method="phone_interact"]
 [connection signal="input_event" from="LivingRoom/Lamp" to="." method="lamp_interact"]
 [connection signal="input_event" from="LivingRoom/Book" to="." method="book_interact"]
+[connection signal="input_event" from="Bathroom2/1-bathroomMirrorCabinet/CloseMirror" to="." method="_on_area_close_mirror_input_event"]
+[connection signal="input_event" from="Bathroom2/1-bathroomMirrorCabinet/1-pillBottle/Area2D" to="." method="_on_area_pills_input_event"]
+[connection signal="input_event" from="Bathroom2/1-bathroomMirrorCabinet/1-screwdriver/Area2D" to="." method="_on_area_screw_driver_input_event"]
+[connection signal="input_event" from="Bathroom2/1-bathtub/BackArrow2/Area2D" to="." method="_on_area_back_arrow"]
+[connection signal="input_event" from="Bathroom2/1-bathtub/Bloodsplatter" to="." method="_on_area_blood_tub_input_event"]
+[connection signal="input_event" from="Bathroom2/1a-bathroom-base/Toilet" to="." method="_on_area_toilet_input_event"]
+[connection signal="input_event" from="Bathroom2/1a-bathroom-base/DoorHandle" to="." method="_on_area_door_handle_input_event"]
+[connection signal="input_event" from="Bathroom2/1a-bathroom-base/Bathtub" to="." method="_on_area_crack_input_event"]
+[connection signal="input_event" from="Bathroom2/1a-bathroom-base/Bathtub" to="." method="_on_area_blood_tub_input_event"]
+[connection signal="input_event" from="Bathroom2/1a-bathroom-base/Broom" to="." method="_on_area_broom_input_event"]
+[connection signal="input_event" from="Bathroom2/1a-bathroom-base/Mirror" to="." method="_on_area_open_mirror_input_event"]
