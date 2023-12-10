@@ -484,18 +484,25 @@ func lamp_interact(viewport, event, shape_idx):
 
 func finish(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		var interactions = [familyInt, bathtubInt, excorcistInt, tvInt, dishesInt, shoesInt, bandaidInt, phoneCutscene]
+		var interactions = [familyInt, bathtubInt, excorcistInt, tvInt, dishesInt, shoesInt, bandaidInt, phoneCutscene, pillsInt]
 
 		var trueCount = 0
 		for interaction in interactions:
 			if interaction:
 				trueCount += 1
+		
 		if trueCount > 5:
 			display_text("I think I've gathered enough information. Time to head out.", 2.0)
+			await get_tree().create_timer(2.0).timeout
+			black_scene_in()
+			display_text("The End!", 2.0)
 		else:
 			display_text("I shouldn't leave yet. There are still some missing clues to be discovered.", 2.0)
 		
-		
+func toBedroom(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		$Camera2D.position.x = 2000
+		$Camera2D.position.y = 0
 
 
 

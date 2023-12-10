@@ -677,6 +677,21 @@ rotation = 3.14159
 scale = Vector2(0.0260015, 0.0260015)
 texture = ExtResource("14_x56sf")
 
+[node name="Area2D" type="Area2D" parent="Finish"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Finish/Area2D"]
+polygon = PackedVector2Array(230.75, 1192.24, 769.188, 923.025, 1192.23, 153.837, 1192.23, -538.431, 730.734, -1269.16, -115.375, -1269.16, -807.641, -1115.32, -1153.78, -307.675, -1115.33, 499.972, -923.031, 1192.24)
+
+[node name="ToBedroom" type="Sprite2D" parent="."]
+position = Vector2(3478.13, -267.875)
+scale = Vector2(0.0350342, 0.0350342)
+texture = ExtResource("14_x56sf")
+
+[node name="Area2D" type="Area2D" parent="ToBedroom"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ToBedroom/Area2D"]
+polygon = PackedVector2Array(-403.18, -1088.22, -831.328, -831.33, -974.047, -460.264, -1145.31, 53.52, -1002.59, 481.673, -688.609, 738.565, -174.828, 1052.54, 453.133, 1052.54, 824.195, 624.391, 1109.63, 139.151, 1081.09, -431.72, 824.195, -831.33, 139.148, -1088.22)
+
 [connection signal="input_event" from="Mirror/Area2D" to="." method="_on_area_open_mirror_input_event"]
 [connection signal="mouse_entered" from="Mirror/Area2D" to="." method="change_cursor_hand"]
 [connection signal="mouse_exited" from="Mirror/Area2D" to="." method="change_cursor_back"]
@@ -719,3 +734,4 @@ texture = ExtResource("14_x56sf")
 [connection signal="input_event" from="Bathroom2/1a-bathroom-base/Bathtub" to="." method="_on_area_blood_tub_input_event"]
 [connection signal="input_event" from="Bathroom2/1a-bathroom-base/Broom" to="." method="_on_area_broom_input_event"]
 [connection signal="input_event" from="Bathroom2/1a-bathroom-base/Mirror" to="." method="_on_area_open_mirror_input_event"]
+[connection signal="input_event" from="Finish/Area2D" to="." method="finish"]
